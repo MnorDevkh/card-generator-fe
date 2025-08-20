@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <nz-card nzBordered="true" class="shadow-sm rounded-3">
+    <h3 class="mb-3">Student Identity Verification</h3>
+
+    <!-- Input -->
+    <div class="mb-3">
+      <input
+        nz-input
+        placeholder="Enter your Identity ID"
+        [(ngModel)]="identityId"
+      />
+    </div>
+
+    <button nz-button nzType="primary" class="w-100" (click)="lookupStudent()" [disabled]="loading">
+      Submit
+    </button>
+
+    <!-- Spinner -->
+    <nz-spin [nzSpinning]="loading">
+      <!-- Error -->
+      <div *ngIf="error" class="alert alert-danger mt-3">
+        {{ error }}
+      </div>
+
+      <!-- Student Info -->
+      <div *ngIf="student" class="mt-3">
+        <p><strong>Card ID:</strong> {{ student.card_id }}</p>
+        <p><strong>Name:</strong> {{ student.name.khmer }} ({{ student.name.english }})</p>
+        <p><strong>Gender:</strong> {{ student.gender }}</p>
+        <p><strong>Phone:</strong> {{ student.phone }}</p>
+        <p><strong>Major:</strong> {{ student.major }}</p>
+      </div>
+    </nz-spin>
+  </nz-card>
+</div>

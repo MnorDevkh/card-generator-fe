@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <h3>Design Your Template</h3>
+
+  <!-- Upload background image -->
+  <input
+    type="file"
+    accept="image/*"
+    class="form-control mb-3"
+    (change)="onFileSelected($event)"
+  />
+
+  <!-- Design canvas -->
+  <div
+    class="border position-relative mx-auto"
+    [style.width.px]="canvasWidth"
+    [style.height.px]="canvasHeight"
+    [style.backgroundImage]="'url(' + backgroundUrl + ')'"
+    style="background-size: contain; background-repeat: no-repeat;"
+    #canvas
+  >
+    <!-- Editable text boxes -->
+    <div
+      *ngFor="let box of textBoxes"
+      class="position-absolute bg-light border rounded p-1"
+      [id]="box.id"
+      [style.top.px]="box.top"
+      [style.left.px]="box.left"
+      [style.width.px]="box.width"
+      [style.height.px]="box.height"
+      contenteditable="true"
+      [attr.data-id]="box.id"
+      (input)="onTextChange(box.id, $event)"
+      style="cursor: move; overflow-wrap: break-word;"
+    >
+      {{ box.text }}
+    </div>
+  </div>
+
+  <button class="btn btn-primary mt-3" (click)="saveTemplate()">
+    Save Template HTML
+  </button>
+
+  <h5 class="mt-4">Saved HTML Preview:</h5>
+  <pre style="white-space: pre-wrap;">{{ savedHtml }}</pre>
+</div>

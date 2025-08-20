@@ -1,0 +1,88 @@
+<!-- <div class="container my-5">
+  <div class="row justify-content-center">
+
+      <div class="row justify-content-center mb-4">
+    <div class="col-md-6">
+      <label for="excel-upload" class="form-label"
+        ><strong>Upload Excel Filed</strong></label
+      >
+      <input
+        id="excel-upload"
+        type="file"
+        accept=".xlsx,.xls"
+        class="form-control"
+        (change)="onExcelUpload($event)"
+      />
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-4 mb-4" *ngFor="let card of cards">
+      <div
+        class="card shadow-sm p-4 d-flex flex-column text-center"
+       
+        style="
+          width: 22rem;
+          height: 34rem;
+          color: black;
+          background-size: cover;
+          background-position: center;
+        "
+        [style.background-image]="backgroundImageUrl"
+      >
+        <div style="text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.7)">
+          <img
+            [src]="card.photoUrl"
+            alt="Card Photo"
+            class="rounded-circle mt-3"
+            style="
+              width: 120px;
+              height: 120px;
+              object-fit: cover;
+              border: 4px solid #fff;
+            "
+          />
+          <p>{{backgroundImageUrl}}</p>
+          <h4 class="card-title mt-3">{{ card.name }}</h4>
+          <p class="fs-5">{{ card.role }}</p>
+        </div>
+
+        <div class="flex-grow-1"></div>
+
+        <div class="bg-white bg-opacity-75 p-2 rounded">
+          <ul class="list-group list-group-flush text-start">
+            <li
+              class="list-group-item d-flex justify-content-between bg-transparent border-0"
+            >
+              <strong>ID:</strong>
+              <span>{{ card.idNumber }}</span>
+            </li>
+            <li
+              class="list-group-item d-flex justify-content-between bg-transparent border-0"
+            >
+              <strong>Expires:</strong>
+              <span>{{ card.expiryDate }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div> -->
+
+<div style="background: #ececec; padding: 30px">
+  <nz-card
+    style="width: 300px"
+    [nzBordered]="false"
+    nzTitle="Card title"
+    [nzExtra]="extraTemplate"
+  >
+    <p>Card content</p>
+    <p>Card content</p>
+    <p>Card content</p>
+  </nz-card>
+</div>
+<ng-template #extraTemplate>
+  <a>More</a>
+</ng-template>

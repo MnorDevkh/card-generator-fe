@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+/* styles.scss (or styles.css) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* styles.scss */
+:root {
+  --app-font: "Inter", "Noto Sans Khmer", system-ui, -apple-system, "Segoe UI",
+              Roboto, "Helvetica Neue", Arial, "Khmer OS", "Hanuman", sans-serif;
+}
+
+html, body {
+  font-family: var(--app-font);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  margin: 0;
+}
+
+/* Make form controls inherit too */
+button, input, select, textarea {
+  font: inherit;
+}
+
+:root {
+  --mdc-typography-font-family: var(--app-font);
+}

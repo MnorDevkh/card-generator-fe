@@ -1,0 +1,192 @@
+<div class="container my-5">
+  <div style="background: #ececec; padding: 30px">
+    <nz-spin [nzSpinning]="loadingTemplates">
+      <button nz-button (click)="exportCards()">Export to PDF</button>
+
+      <div style="display: flex; justify-content: space-between; margin-top: -10px; gap: 5px"></div>
+      <!-- Issue Date -->
+      <div class="d-flex justify-content-between items-center gap-2">
+        <div style="flex: 1; font-size: 9px; text-align: center">
+          <b>Issue</b><br />
+          <input
+            type="date"
+            [(ngModel)]="issueDate"
+            style="width: 100%; font-size: 9px; padding: 2px; border: 1px solid #ccc"
+          />
+        </div>
+
+        <!-- Expiry Date -->
+        <div style="flex: 1; font-size: 9px; text-align: center">
+          <b>Expiry</b><br />
+          <input
+            type="date"
+            [(ngModel)]="expiryDate"
+            style="width: 100%; font-size: 9px; padding: 2px; border: 1px solid #ccc"
+          />
+        </div>
+        <div style="flex: 1; font-size: 9px; text-align: center">
+          <b>Year</b><br />
+          <input
+            type="text"
+            [(ngModel)]="year"
+            style="width: 100%; font-size: 9px; padding: 2px; border: 1px solid #ccc"
+          />
+        </div>
+      </div>
+
+      <div *ngIf="students.length && cardTemplates.length; else noData">
+        <nz-row [nzGutter]="4">
+          <nz-col *ngFor="let student of students; let i = index" [nzSpan]="4" class="mb-3 p-3;">
+            <div #cardContainer [id]="'card-' + i">
+              <nz-card
+                [nzBordered]="true"
+                style="width: 5.4cm; height: 8.7cm; position: relative; overflow: hidden"
+                [ngStyle]="{
+                  'background-image': cardTemplates.length
+                    ? 'url(' + cardTemplates[i % cardTemplates.length].imageUrl + ')'
+                    : 'none',
+                  'background-size': 'cover',
+                  'background-position': 'center',
+                  'background-repeat': 'no-repeat'
+                }"
+              >
+                <div
+                  style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    align-items: center;
+                    padding-top: 85px;
+                    text-align: center;
+                  "
+                >
+                  <div
+                    style="
+                      width: 1.5cm;
+                      height: 2cm;
+                      border: 1px solid #ccc;
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      overflow: hidden;
+                    "
+                  >
+                    <ng-container *ngIf="student.photo; else defaultIcon">
+                      <img
+                        [src]="student.photo"
+                        alt="Student Photo"
+                        style="width: 100%; height: 100%; object-fit: cover"
+                      />
+                    </ng-container>
+                    <ng-template #defaultIcon>
+                      <i class="bi bi-person-square" style="font-size: 2rem; color: #ccc"></i>
+                    </ng-template>
+                  </div>
+
+                  <p style="margin-top: 4px; font-size: 8px; font-weight: bold; color: #555">
+                    {{ student.card_id }}
+                  </p>
+
+                  <p style="font-size: 16px; margin-top: -15px; font-weight: bold; color: #ec2323">
+                    {{ student.name.khmer }}
+                  </p>
+
+                  <p style="font-size: 12px; font-weight: bold; margin-top: -20px; color: #0c18c9">
+                    {{ student.name.english }}
+                  </p>
+                  <div style="margin-top: -18px">
+                    <table
+                      style="width: 170px; font-size: 8px; text-align: left; font-weight: bold"
+                    >
+                      <tbody>
+                        <tr>
+                          <td style="width: 50px">DOB</td>
+                          <td>
+                            <span> : &nbsp; {{ student.birth_date | date : 'dd-MM-yyyy' }} </span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Faculty</td>
+                          <td>
+                            : &nbsp;{{ student.faculty || '-' }} , <b>Batch</b> : &nbsp;|
+                            <span style="letter-spacing: -1px">
+                              &nbsp; {{ student.batch || '-' }}</span
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Year</td>
+                          <td>: &nbsp; {{ year || '-' }}</td>
+                        </tr>
+                        <tr>
+                          <td>Issue Date</td>
+                          <td>
+                            <span style="letter-spacing: -1px">
+                              : &nbsp; {{ issueDate | date : 'dd-MM-yyyy' }}</span
+                            >
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>Expiry Date</td>
+                          <td>
+                            <span style="letter-spacing: -1px">
+                              : &nbsp; {{ expiryDate | date : 'dd-MM-yyyy' }}</span
+                            >
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div></div>
+                </div>
+
+                <div
+                  style="
+                    position: absolute;
+                    bottom: 25px;
+                    right: 15px;
+                    width: 1.5cm;
+                    height: 1.5cm;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                  "
+                >
+                  <nz-qrcode
+                    [nzValue]="url + 'students/' + student.id"
+                    [nzSize]="50"
+                    nzBgColor="transparent"
+                    [nzBordered]="false"
+                  ></nz-qrcode>
+                </div>
+
+                <div
+                  style="
+                    position: absolute;
+                    bottom: 25px;
+                    bottom: 5px;
+                    left: 0;
+                    width: 100%;
+                    text-align: center;
+                    font-size: 8px;
+                    color: #555;
+                    margin-top: -10px;
+                  "
+                ></div>
+              </nz-card>
+            </div>
+          </nz-col>
+        </nz-row>
+      </div>
+      <ng-template #noData>
+        <p>No students or templates loaded.</p>
+      </ng-template>
+    </nz-spin>
+  </div>
+</div>

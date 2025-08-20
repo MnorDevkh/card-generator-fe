@@ -1,0 +1,50 @@
+<div class="flex-wrap justify-content-center align-items-center gap-2 my-3">
+  @for (item of [ 
+  { title: 'Generate Card', link: '/card-generator' }, 
+  { title: 'Card Template', link: '/card-template' }, 
+  { title: 'Student List ', link: '/student-list' }, 
+  { title: 'CLI Docs', link:
+  'https://angular.dev/tools/cli' }, { title: 'Angular Language Service', link:
+  'https://angular.dev/tools/language-service' }, { title: 'Angular DevTools',
+  link: 'https://angular.dev/tools/devtools' } ]; track item.title) {
+  <p class="pb-2">
+    <a
+      class="btn btn-outline-primary btn-sm rounded-pill align-items-center gap-1"
+      [href]="item.link"
+      rel="noopener"
+    >
+      {{ item.title }}
+      <!-- <i class="bi bi-box-arrow-up-right"></i> -->
+    </a>
+  </p>
+  }
+</div>
+
+<hr class="my-4" />
+
+<div class="d-flex gap-3">
+  <a
+    href="https://github.com/angular/angular"
+    target="_blank"
+    rel="noopener"
+    class="text-muted fs-4"
+  >
+    <i class="bi bi-github"></i>
+  </a>
+  <a
+    href="https://twitter.com/angular"
+    target="_blank"
+    rel="noopener"
+    class="text-muted fs-4"
+  >
+    <i class="bi bi-twitter"></i>
+  </a>
+  <a
+    href="https://www.youtube.com/channel/UCbn1OgGei-DV7aSRo_HaAiw"
+    target="_blank"
+    rel="noopener"
+    class="text-muted fs-4"
+  >
+    <i class="bi bi-youtube"></i>
+  </a>
+</div>

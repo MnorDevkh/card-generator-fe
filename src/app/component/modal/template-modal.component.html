@@ -1,0 +1,35 @@
+<div class="template-grid">
+  <div
+    *ngFor="let template of cardTemplates"
+    (click)="selectTemplate(template.id)"
+    [class.selected]="template.id === selectedTemplateId"
+    class="template-card"
+  >
+    <img [src]="template.imageUrl" alt="Template {{template.id}}" />
+  </div>
+</div>
+
+<button nz-button nzType="primary" (click)="confirmSelection()">
+  Generate Cards
+</button>
+
+<style>
+.template-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.template-card {
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 4px;
+}
+.template-card.selected {
+  border-color: #1890ff;
+}
+.template-card img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+}
+</style>
