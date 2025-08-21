@@ -1,23 +1,18 @@
 <div class="container mt-3">
-
+  <nz-spin [nzSpinning]="loading">
     <nz-card *ngIf="student" nzBordered="true" class="shadow-sm rounded-3">
       <div class="row g-3 align-items-center">
         <!-- Profile photo -->
         <div class="col-12 col-md-3 text-center">
           <img
-            *ngIf="student.photo; else defaultPhoto"
+            *ngIf="student.photo; else defaultIcon"
             [src]="student.photo"
             alt="Student Photo"
-            class="img-fluid rounded-circle border"
+            class="img-fluid rounded-3 border"
             style="max-width: 150px"
           />
-          <ng-template #defaultPhoto>
-            <img
-              src="assets/default-profile.png"
-              alt="Default"
-              class="img-fluid rounded-circle border"
-              style="max-width: 150px"
-            />
+          <ng-template #defaultIcon>
+            <i class="bi bi-person-square" style="font-size: 2rem; color: #ccc"></i>
           </ng-template>
         </div>
 
@@ -40,7 +35,7 @@
               {{ student.gender }}
             </nz-descriptions-item>
             <nz-descriptions-item nzTitle="Birth Date">
-              {{ student.birth_date | date: 'dd/MM/yyyy' }}
+              {{ student.birth_date | date : 'dd/MM/yyyy' }}
             </nz-descriptions-item>
             <nz-descriptions-item nzTitle="Phone">
               {{ student.phone }}
@@ -63,6 +58,6 @@
           </nz-descriptions>
         </div>
       </div>
-    </nz-card>
-
+    </nz-card></nz-spin
+  >
 </div>
