@@ -2,6 +2,7 @@
 /* You can add global styles to this file, and also import other style files */
 /* styles.scss (or styles.css) */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kantumruy&family=KoHo:wght@200;300;400&display=swap');
 
 /* styles.scss */
 :root {
@@ -10,7 +11,7 @@
 }
 
 html, body {
-  font-family: var(--app-font);
+  font-family: 'Kantumruy', 'KoHo', sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
