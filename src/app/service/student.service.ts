@@ -50,7 +50,7 @@ export class StudentService {
   getStudents(skip: number, limit: number): Observable<{ students: Student[]; total: number }> {
     const params = new HttpParams().set('skip', skip.toString()).set('limit', limit.toString());
     return this.http.get<{ students: Student[]; total: number }>(
-      this.apiUrl + 'students/students',
+      this.apiUrl + 'students/',
       { params }
     );
   }

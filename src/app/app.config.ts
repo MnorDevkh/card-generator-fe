@@ -8,7 +8,9 @@ import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient,withInterceptors  } from '@angular/common/http';
+
+
 
 registerLocaleData(en);
 
@@ -16,6 +18,23 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes), provideClientHydration(withEventReplay()), provideNzI18n(en_US), importProvidersFrom(FormsModule), provideAnimationsAsync(), provideHttpClient()
+    provideRouter(routes), 
+    provideClientHydration(withEventReplay()), 
+    provideNzI18n(en_US), 
+    importProvidersFrom(FormsModule),
+    provideAnimationsAsync(), 
+    provideHttpClient( withInterceptors([
+        (req, next) => {
+          const token = localStorage.getItem('access_token');
+          console.log(token);
+          
+          if (token) {
+            req = req.clone({
+              setHeaders: { Authorization: `Bearer ${token}` }
+            });
+          }
+          return next(req);
+        }
+      ]))
   ]
 };

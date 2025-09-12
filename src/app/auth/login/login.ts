@@ -47,7 +47,6 @@ export class Login {
         next: (response) => {
           this.loading = false;
           console.log('Login success:', response);
-
           // Save the token
           this.authService.saveToken(response.access_token);
 
