@@ -33,39 +33,31 @@ export interface Student {
   expiryDate: string;
 }
 
-export interface PaginatedStudents {
-  total: number;
-  skip: number;
-  limit: number;
-  students: Student[];
-}
+export interface PaginatedStudents { total: number; skip: number; limit: number; students: Student[]; }
+export interface UploadResponse { success: boolean; imported: number; errors?: string[]; }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class StudentService {
-  constructor(private http: HttpClient) {}
-  private apiUrl = environment.apiBaseUrl;
+  private apiUrl = environment.apiBaseUrl.replace(/\/+$/, ''); // normalize base URL
 
-  getStudents(skip: number, limit: number): Observable<{ students: Student[]; total: number }> {
-    const params = new HttpParams().set('skip', skip.toString()).set('limit', limit.toString());
-    return this.http.get<{ students: Student[]; total: number }>(
-      this.apiUrl + 'students/',
-      { params }
-    );
+  constructor(private http: HttpClient) {}
+
+  getStudents(skip: number, limit: number): Observable<PaginatedStudents> {
+    const params = new HttpParams()
+      .set('skip', skip.toString())
+      .set('limit', limit.toString());
+    return this.http.get<PaginatedStudents>(`${this.apiUrl}/students`, { params });
   }
 
-  uploadExcel(formData: FormData): Observable<any> {
-    // POST the Excel file to the backend
-    return this.http.post<any>(this.apiUrl + 'students/upload_excel', formData);
+  uploadExcel(formData: FormData): Observable<UploadResponse> {
+    return this.http.post<UploadResponse>(`${this.apiUrl}/students/upload_excel`, formData);
   }
 
   getStudentsByIds(studentIds: string[]): Observable<Student[]> {
-    return this.http.post<Student[]>(`${this.apiUrl}student/by-ids`, {
-      student_ids: studentIds,
-    });
+    return this.http.post<Student[]>(`${this.apiUrl}/students/by-ids`, { student_ids: studentIds });
   }
+
   getStudentInfo(studentId: string, identityId: string): Observable<Student> {
-    return this.http.get<Student>(`${this.apiUrl}students/${studentId}/${identityId}`);
+    return this.http.get<Student>(`${this.apiUrl}/students/${studentId}/${identityId}`);
   }
 }

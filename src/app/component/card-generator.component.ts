@@ -169,30 +169,29 @@ export class CardGeneratorComponent implements OnInit {
     });
   }
 
-  loadStudents(): void {
-    if (!this.studentIds.length) {
-      console.warn('No student IDs provided, skipping student load.');
-      return;
-    }
-    console.log('work');
-
-    this.loadingStudents = true;
-    this.studentService.getStudentsByIds(this.studentIds).subscribe({
-      next: (students) => {
-        this.students = students.map((student) => ({
-          ...student,
-          photo: student.photo ? this.baseUrl + 'upload_image/image/' + student.photo : null,
-          issueDate: '',
-          expiryDate: '',
-        }));
-        this.totalStudents = students.length;
-        this.loadingStudents = false;
-        console.log(this.students);
-      },
-      error: (err) => {
-        console.error('Failed to load students', err);
-        this.loadingStudents = false;
-      },
-    });
+loadStudents(): void {
+  if (!this.studentIds.length) {
+    console.warn('No student IDs provided, skipping student load.');
+    return;
   }
+
+  this.loadingStudents = true;
+  this.studentService.getStudentsByIds(this.studentIds).subscribe({
+    next: (students) => {
+      this.students = students.map((student) => ({
+        ...student,
+        photo: student.photo ? `${this.baseUrl}/upload_image/image/${student.photo}` : null,
+        issueDate: '',
+        expiryDate: '',
+      }));
+      this.totalStudents = students.length;
+      this.loadingStudents = false;
+    },
+    error: (err) => {
+      console.error('Failed to load students', err);
+      this.loadingStudents = false;
+    },
+  });
+}
+
 }
