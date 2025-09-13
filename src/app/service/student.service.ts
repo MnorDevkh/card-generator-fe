@@ -57,15 +57,15 @@ export class StudentService {
 
   uploadExcel(formData: FormData): Observable<any> {
     // POST the Excel file to the backend
-    return this.http.post<any>(this.apiUrl + 'students/students/upload_excel', formData);
+    return this.http.post<any>(this.apiUrl + 'students/upload_excel', formData);
   }
 
   getStudentsByIds(studentIds: string[]): Observable<Student[]> {
-    return this.http.post<Student[]>(`${this.apiUrl}students/students/by-ids`, {
+    return this.http.post<Student[]>(`${this.apiUrl}student/by-ids`, {
       student_ids: studentIds,
     });
   }
   getStudentInfo(studentId: string, identityId: string): Observable<Student> {
-    return this.http.get<Student>(`${this.apiUrl}students/students/${studentId}/${identityId}`);
+    return this.http.get<Student>(`${this.apiUrl}students/${studentId}/${identityId}`);
   }
 }
