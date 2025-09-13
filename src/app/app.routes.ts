@@ -16,12 +16,12 @@ export const routes: Routes = [
   // Unprotected route for login
   { path: 'login', component: Login },
   // Protected routes using canActivate
-  { path: 'card-generator/:id', component: CardGeneratorComponent, canActivate: [AuthGuard] },
+  { path: 'card-generator/:id', component: CardGeneratorComponent, canActivate: [AuthGuard],data: { renderMode: 'spa' } },
   { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] },
   { path: 'card-template', component: CardTemplateListComponent, canActivate: [AuthGuard] },
   { path: 'upload-template', component: UploadImageComponent, canActivate: [AuthGuard] },
   { path: 'student-list', component: StudentListComponent, canActivate: [AuthGuard] },
-  { path: 'student-info/:id', component: StudentInfo, canActivate: [AuthGuard] },
+  { path: 'student-info/:id', component: StudentInfo, canActivate: [AuthGuard], data: { renderMode: 'spa' } },
   { path: 'students/:id', component: StudentLookup, canActivate: [AuthGuard] },
   // Add a catch-all for unknown routes
   { path: '**', redirectTo: '' }
