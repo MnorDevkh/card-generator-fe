@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://127.0.0.1:8000/',
-  url: 'http://localhost:4200/'
+  apiBaseUrl: 'https://cardsystemapi.aga-institute.edu.kh/',
+  url: 'https://cardsystemapi.aga-institute.edu.kh/'
 };
 
