@@ -49,6 +49,14 @@
               >
                 Update
               </button>
+              <button
+                nz-button
+                nzType="default"
+                nzDanger
+                (click)="deleteTemplate(template.id, $event)"
+              >
+                Delete
+              </button>
             </div>
           </nz-card>
         </div>
