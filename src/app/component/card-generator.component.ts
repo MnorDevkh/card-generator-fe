@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -57,7 +57,8 @@ export class CardGeneratorComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private studentService: StudentService,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -154,17 +155,20 @@ export class CardGeneratorComponent implements OnInit {
           next: (templates) => {
             this.cardTemplates = templates;
             this.loadingTemplates = false;
+            this.cdr.detectChanges();
             console.log('Loaded templates:', this.cardTemplates);
           },
           error: (err) => {
             console.error('Failed to load templates:', err);
             this.loadingTemplates = false;
+            this.cdr.detectChanges();
           },
         });
       },
       error: (err) => {
         console.error('Failed to load image list:', err);
         this.loadingTemplates = false;
+        this.cdr.detectChanges();
       },
     });
   }
@@ -187,11 +191,13 @@ export class CardGeneratorComponent implements OnInit {
         }));
         this.totalStudents = students.length;
         this.loadingStudents = false;
+        this.cdr.detectChanges();
         console.log(this.students);
       },
       error: (err) => {
         console.error('Failed to load students', err);
         this.loadingStudents = false;
+        this.cdr.detectChanges();
       },
     });
   }
