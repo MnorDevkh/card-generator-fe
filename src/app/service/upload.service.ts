@@ -42,6 +42,6 @@ export class UploadService {
 
    deleteTemplate(id: string): Observable<any> {
     // The API endpoint from the curl command seems to be /upload_image/{id}
-    return this.http.delete(`${this.baseUrl}/upload_image/${id}`);
+    return this.http.delete(`${this.baseUrl}upload_image/${id}`);
   }
 }
